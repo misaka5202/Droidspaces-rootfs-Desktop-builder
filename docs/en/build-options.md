@@ -8,7 +8,7 @@ Choose the target, desktop, and optional features on the GitHub Actions `Run wor
 
 | Target | Base image | Desktop profiles |
 | --- | --- | --- |
-| `Debian-13` | Debian 13 (trixie) | `KDE`, `KDE mobile`, `GNOME`, `Anland Next`, `Niri`, `Hyprland`, `Mango`, `Denial` |
+| `Debian-13` | Debian 13 (trixie) | `KDE`, `KDE mobile`, `GNOME`, `Niri`, `Hyprland`, `Mango`, `Denial` |
 | `Ubuntu-26` | Ubuntu 26.04 | Same as above |
 | `Fedora-43` | Fedora 43 | Same as above |
 | `Fedora-44` | Fedora 44 | Same as above |
@@ -21,7 +21,6 @@ Choose the target, desktop, and optional features on the GitHub Actions `Run wor
 | `KDE` | KDE Plasma. |
 | `KDE mobile` | Touch-first Plasma Mobile; requires Anland Wayland. |
 | `GNOME` | A full Anland Wayland desktop on Debian 13, Ubuntu 26, Fedora 43/44, and Arch Linux ARM, with a terminal, file manager, settings, system monitor, keyring, portal, and common document/media apps. |
-| `Anland Next` | An Anland session with rootless Xwayland and mini-wm, without a full desktop; Wayland only. |
 | `Niri`, `Hyprland`, `Mango`, `Denial` | Anland Wayland compositors on Debian 13, Ubuntu 26, Fedora 43/44, and Arch Linux ARM. They include a basic terminal, XDG portal, audio, and fonts, without a full desktop application set. |
 
 ## Workflow inputs
@@ -30,7 +29,7 @@ Choose the target, desktop, and optional features on the GitHub Actions `Run wor
 | --- | --- | --- |
 | `build_target` | `Debian-13`, `Ubuntu-26`, `Fedora-43`, `Fedora-44`, `Arch`, `all`, `all-wayland`; default `Debian-13` | Select build targets. |
 | `custom_username` | 1–32 letters, digits, `_`, or `-`, starting with a letter or `_`; default `Gold` | Normal RootFS user. |
-| `desktop` | `KDE`, `KDE mobile`, `GNOME`, `Anland Next`, `Niri`, `Hyprland`, `Mango`, `Denial`; default `KDE` | Selects the primary desktop, i.e. the one that autostarts. |
+| `desktop` | `KDE`, `KDE mobile`, `GNOME`, `Niri`, `Hyprland`, `Mango`, `Denial`; default `KDE` | Selects the primary desktop, i.e. the one that autostarts. |
 | `extra_desktops` | Comma-separated desktop names, e.g. `Niri,Hyprland`; empty by default | Additional desktop profiles to build alongside the primary one; leave empty to build only the primary desktop. The option is ignored for the `all-wayland` target. |
 | `desktop_autostart` | `true` / `false`; default `true` | Installs the desktop startup service. |
 | `display_backend` | `anland-wayland` | The only display backend. |
@@ -64,7 +63,6 @@ Droidspaces versions with recommendation support prefill their installation wiza
 | KDE or KDE Mobile | `allow_userns=1` |
 | Docker enabled | `net_mode=nat`; otherwise keep the app default |
 | Snapdragon GPU support enabled | `enable_gpu_mode=1` |
-| Anland Next | `bind_mounts=/data/local/tmp/awl:/run/anland` |
 | `enable_zh_tz=true` (Chinese locale and Shanghai timezone) | `dns_servers=114.114.114.114` |
 
 Keys follow the Droidspaces Anland branch. Mount paths live in the config and use

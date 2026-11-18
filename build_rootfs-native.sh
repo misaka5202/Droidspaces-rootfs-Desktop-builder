@@ -35,7 +35,7 @@ while getopts "i:v:K:L:B:P:a:b:c:d:e:f:g:h:n:S:t:u:A:G:" opt; do
     u) USERNAME="$OPTARG" ;; # 自定义用户名
     A) LEGACY_ANLAND_INPUT="$OPTARG" ;; # 兼容旧参数
     G) GPU_VENDOR="$OPTARG" ;; # GPU 厂商: qualcomm | mediatek
-    *) echo "用法: $0 -i <template.Dockerfile> -K <KDE|'KDE mobile'|GNOME|'Anland Next'> [-B <anland-wayland>]" ; exit 1 ;;
+    *) echo "用法: $0 -i <template.Dockerfile> -K <KDE|'KDE mobile'|GNOME> [-B <anland-wayland>]" ; exit 1 ;;
   esac
 done
 

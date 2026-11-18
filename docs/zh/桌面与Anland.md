@@ -12,7 +12,6 @@
 | KDE + Anland Wayland | `startplasma-wayland` |
 | KDE Mobile + Anland Wayland | `startplasmamobile` |
 | GNOME + Anland Wayland | `gnome-session --session=gnome` |
-| Anland Next | `/usr/bin/anland-session` |
 | Niri | `/usr/bin/niri-anland` |
 | Hyprland | `/usr/bin/hyprland-anland` |
 | Mango | `/usr/bin/mango-anland` |
