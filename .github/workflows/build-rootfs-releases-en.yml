@@ -30,7 +30,6 @@ on:
           - KDE
           - KDE mobile
           - GNOME
-          - Anland Next
           - Niri
           - Hyprland
           - Mango
@@ -46,7 +45,7 @@ on:
         type: boolean
         default: true
       display_backend:
-        description: Display backend (Arch KDE and KDE mobile/GNOME/Anland Next/Niri/Hyprland/Mango/Denial always use Anland Wayland)
+        description: Display backend (Arch KDE and KDE mobile/GNOME/Niri/Hyprland/Mango/Denial always use Anland Wayland)
         required: true
         type: choice
         default: anland-wayland

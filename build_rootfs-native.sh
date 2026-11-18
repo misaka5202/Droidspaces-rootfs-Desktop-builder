@@ -76,7 +76,7 @@ case "$ENABLE_systemd257" in
   *) echo "错误：-S 只支持 true 或 false。" >&2; exit 1 ;;
 esac
 
-if [[ "$DESKTOP" == kde-mobile || "$DESKTOP" == gnome || "$DESKTOP" == anland-next || \
+if [[ "$DESKTOP" == kde-mobile || "$DESKTOP" == gnome || \
       "$DESKTOP" == niri || "$DESKTOP" == hyprland || "$DESKTOP" == mango || "$DESKTOP" == denial ]]; then
   DISPLAY_BACKEND="anland-wayland"
 fi

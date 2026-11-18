@@ -30,7 +30,6 @@ on:
           - KDE
           - KDE mobile
           - GNOME
-          - Anland Next
           - Niri
           - Hyprland
           - Mango
@@ -46,7 +45,7 @@ on:
         type: boolean
         default: true
       display_backend:
-        description: 显示后端（KDE mobile/GNOME/Anland Next/Niri/Hyprland/Mango/Denial 固定使用 Anland Wayland）
+        description: 显示后端（KDE mobile/GNOME/Niri/Hyprland/Mango/Denial 固定使用 Anland Wayland）
         required: true
         type: choice
         default: anland-wayland
@@ -122,7 +121,7 @@ on:
         type: string
         default: Goldzxcbug/droidspaces-package
       gpu_vendor:
-        description: GPU 厂商（qualcomm=Adreno 硬件加速；mediatek=MTK：Anland Next 走 mali0，其余桌面走 vkms）
+        description: GPU 厂商（qualcomm=Adreno 硬件加速，无需额外模块；mediatek=MTK：vkms render node）
         required: true
         type: choice
         default: qualcomm

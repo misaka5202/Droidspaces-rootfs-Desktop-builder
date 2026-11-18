@@ -6,7 +6,7 @@ write_rootfs_config() {
     local zh_tz_enabled="${7:-false}"
     local anland=0 userns=0 gpu=0
 
-    case "$desktop" in kde|kde-mobile|gnome|anland-next|niri|hyprland|mango|denial) ;; *) return 1 ;; esac
+    case "$desktop" in kde|kde-mobile|gnome|niri|hyprland|mango|denial) ;; *) return 1 ;; esac
     case "$backend" in
         anland-wayland) anland=1 ;;
         *) return 1 ;;
@@ -26,9 +26,6 @@ write_rootfs_config() {
         fi
         if [[ "$docker_enabled" == true ]]; then
             printf '%s\n' 'net_mode=nat'
-        fi
-        if [[ "$desktop" == anland-next ]]; then
-            printf '%s\n' 'bind_mounts=/data/local/tmp/awl:/run/anland'
         fi
     } > "$output"
 }

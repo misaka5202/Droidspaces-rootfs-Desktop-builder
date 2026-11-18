@@ -72,7 +72,7 @@ on:
         type: string
         default: ''
       gpu_vendor:
-        description: 'GPU 厂商：qualcomm（Adreno 硬件加速）或 mediatek（MTK；Anland Next=libhybris+/dev/mali0+mali_nsfix，其余桌面=vkms render node）'
+        description: 'GPU 厂商：qualcomm（Adreno 硬件加速，无需额外模块）或 mediatek（MTK：vkms render node，llvmpipe 软件渲染）'
         required: false
         type: string
         default: qualcomm
@@ -244,7 +244,7 @@ jobs:
             fi
 
             case "$DESKTOP" in
-              kde-mobile|gnome|anland-next|niri|hyprland|mango|denial)
+              kde-mobile|gnome|niri|hyprland|mango|denial)
                 DISPLAY_BACKEND="anland-wayland"
                 ;;
             esac
@@ -263,7 +263,7 @@ jobs:
                 while IFS= read -r candidate; do
                   emit "$candidate" "$wd" "anland-wayland" "$DESKTOP_AUTOSTART" "none"
                 done < <(desktop_wayland_targets_json "$wd" | jq -r '.[]')
-              done < <(printf '%s\n' kde kde-mobile gnome anland-next niri hyprland mango denial)
+              done < <(printf '%s\n' kde kde-mobile gnome niri hyprland mango denial)
             else
               case "$TARGET" in
                 all)

@@ -126,27 +126,14 @@ while IFS= read -r file; do
   # 名称里带上 GPU 厂商，两个版本在同一 Release 里能区分
   case "$gpu" in
     qualcomm) gpu_label_zh='（高通 Adreno）'; gpu_label_en=' (Qualcomm Adreno)' ;;
-    mediatek)
-        if [ "$desktop" = "anland-next" ]; then
-            gpu_label_zh='（MTK Mali）'; gpu_label_en=' (MediaTek Mali)'
-        else
-            gpu_label_zh='（MTK vkms）'; gpu_label_en=' (MediaTek vkms)'
-        fi
-        ;;
+    mediatek) gpu_label_zh='（MTK vkms）';   gpu_label_en=' (MediaTek vkms)' ;;
     *)        gpu_label_zh='';               gpu_label_en='' ;;
   esac
   case "$gpu" in
     qualcomm) gpu_note_zh='启用高通 Adreno 硬件加速（Mesa Turnip/Freedreno + kgsl）。'
               gpu_note_en='Qualcomm Adreno hardware acceleration is enabled (Mesa Turnip/Freedreno over kgsl).' ;;
-    mediatek)
-        if [ "$desktop" = "anland-next" ]; then
-            gpu_note_zh='Anland Next（6.x）：libhybris 直驱厂商 Mali（/dev/mali0），宿主机需先安装 droidspaces-lkm 并加载 mali_nsfix；不需要 vkms。'
-            gpu_note_en='Anland Next (6.x): libhybris drives the vendor Mali driver on /dev/mali0; the host needs droidspaces-lkm with mali_nsfix loaded. No vkms.'
-        else
-            gpu_note_zh='自带标准 Wayland 合成器，经 ANLAND_DRM_DEVICE=/dev/dri/renderD128 输出；Mali 无 DRM render node，宿主机需先加载 droidspaces-lkm 的 vkms 模块（llvmpipe 软件渲染）。'
-            gpu_note_en='Ships its own standard Wayland compositor and renders via ANLAND_DRM_DEVICE=/dev/dri/renderD128; Mali has no DRM render node, so the host needs the vkms module from droidspaces-lkm (llvmpipe software rendering).'
-        fi
-        ;;
+    mediatek) gpu_note_zh='自带标准 Wayland 合成器，经 ANLAND_DRM_DEVICE=/dev/dri/renderD128 输出；Mali 无 DRM render node，宿主机需先加载 droidspaces-lkm 的 vkms 模块（llvmpipe 软件渲染）。'
+              gpu_note_en='Ships its own standard Wayland compositor and renders via ANLAND_DRM_DEVICE=/dev/dri/renderD128; Mali has no DRM render node, so the host needs the vkms module from droidspaces-lkm (llvmpipe software rendering).' ;;
     *)        gpu_note_zh='启用高通 Adreno/Mesa 支持。'
               gpu_note_en='Qualcomm Adreno/Mesa support is enabled.' ;;
   esac

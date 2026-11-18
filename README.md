@@ -12,20 +12,16 @@
 
 ## GPU 版本
 
-每个桌面镜像都会构建两个版本。**MTK 版按桌面分两条渲染路径**，选镜像前先看清楚：
+每个桌面镜像构建两个版本，按 GPU 厂商区分：
 
 | 文件名带 | 适用 | 渲染方式 |
 |---|---|---|
-| `-qualcomm-` | 骁龙 / Adreno | Adreno 硬件加速（Mesa Turnip/Freedreno + kgsl），两条路线都不需要 `vkms` |
-| `-mediatek-` × Anland Next | 联发科 / Mali，Anland Next（6.x 会话） | libhybris 直驱厂商 Mali（`/dev/mali0`）；宿主需 `mali_nsfix`，**不需要 `vkms`** |
-| `-mediatek-` × 其余桌面（KDE Plasma、KDE Plasma Mobile、GNOME、Hyprland、Niri、Mango、Denial） | 联发科 / Mali，自带标准 Wayland 合成器 | 镜像走 `ANLAND_DRM_DEVICE=/dev/dri/renderD128`；Mali 没有 DRM render node，必须由 droidspaces-lkm 的 `vkms` 提供（llvmpipe 软件渲染），`mali_nsfix` 对这条路径无效 |
+| `-qualcomm-` | 骁龙 / Adreno | Adreno 硬件加速（Mesa Turnip/Freedreno + kgsl）；不需要 `vkms`，也不需要 `mali_nsfix` |
+| `-mediatek-` | 联发科 / Mali，自带标准 Wayland 合成器（KDE Plasma、KDE Plasma Mobile、GNOME、Hyprland、Niri、Mango、Denial） | 经 `ANLAND_DRM_DEVICE=/dev/dri/renderD128` 输出；Mali 没有 DRM render node，必须由 droidspaces-lkm 的 `vkms` 提供（llvmpipe 软件渲染） |
 
-- **Anland Next（6.x）× MTK**：宿主需先安装 [droidspaces-lkm](https://github.com/misaka5202/droidspaces-lkm)
-  并加载 `mali_nsfix`。没有它时容器建不了 GPU context（`dmesg` 报
-  `Failed to get pid pointer`，用户态是 `eglInitialize` 返回 `0x3001`）。
-- **其余桌面 × MTK**：宿主需加载 droidspaces-lkm 的 `vkms`（模块目录放
-  `enable_vkms`），否则合成器会因 `no usable DRM render device` 拒绝启动。
-- **高通版**：两条路线都是 Adreno 硬件加速，不需要额外操作。
+- **高通版**：Adreno 硬件加速，无需额外模块。
+- **MTK 版**：宿主需加载 droidspaces-lkm 的 `vkms`（模块目录放 `enable_vkms`），否则合成器会因 `no usable DRM render device` 拒绝启动。
+- **Anland Next（6.x waylandbridge，需要 `mali_nsfix`）不在本仓库构建**，请用 [droidspaces-anland6-rootfs](https://github.com/misaka5202/droidspaces-anland6-rootfs)。
 
 一次构建两个版本：运行“发布全桌面 Wayland RootFS（高通 + MTK 双版本）”，
 `gpu_vendor` 保持 `both`。只构建单个发行版的一个厂商版本，用单目标工作流并指定 `gpu_vendor`。

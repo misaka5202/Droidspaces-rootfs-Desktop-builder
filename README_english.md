@@ -12,23 +12,16 @@ Subscribe to the rolling desktop feed in Droidspaces: [Chinese RootFS (GitHub)](
 
 ## GPU variants
 
-Every desktop image is built in two variants. **MediaTek images split into two
-rendering routes by desktop** — check which one your image uses:
+Every desktop image is built in two variants, by GPU vendor:
 
 | Suffix | For | Rendering |
 |---|---|---|
-| `-qualcomm-` | Snapdragon / Adreno | Adreno hardware acceleration (Mesa Turnip/Freedreno over kgsl); neither route needs `vkms` |
-| `-mediatek-` × Anland Next | MediaTek / Mali, Anland Next (6.x session) | libhybris drives the vendor Mali driver on `/dev/mali0`; host needs `mali_nsfix`, **no `vkms`** |
-| `-mediatek-` × other desktops (KDE Plasma, KDE Plasma Mobile, GNOME, Hyprland, Niri, Mango, Denial) | MediaTek / Mali, ships its own standard Wayland compositor | The image renders via `ANLAND_DRM_DEVICE=/dev/dri/renderD128`; Mali has no DRM render node, so the host must supply one with droidspaces-lkm's `vkms` (llvmpipe software rendering). `mali_nsfix` does nothing for this route. |
+| `-qualcomm-` | Snapdragon / Adreno | Adreno hardware acceleration (Mesa Turnip/Freedreno over kgsl); needs neither `vkms` nor `mali_nsfix` |
+| `-mediatek-` | MediaTek / Mali, ships its own standard Wayland compositor (KDE Plasma, KDE Plasma Mobile, GNOME, Hyprland, Niri, Mango, Denial) | Renders via `ANLAND_DRM_DEVICE=/dev/dri/renderD128`; Mali has no DRM render node, so the host must supply one with droidspaces-lkm's `vkms` (llvmpipe software rendering) |
 
-- **Anland Next (6.x) × MediaTek**: install [droidspaces-lkm](https://github.com/misaka5202/droidspaces-lkm)
-  on the host and load `mali_nsfix`. Without it the container cannot create a
-  GPU context (`dmesg` shows `Failed to get pid pointer`; userspace sees
-  `eglInitialize` return `0x3001`).
-- **Other desktops × MediaTek**: load droidspaces-lkm's `vkms` on the host
-  (`enable_vkms` in the module directory), otherwise the compositor refuses to
-  start with `no usable DRM render device`.
-- **Qualcomm**: both routes use Adreno hardware acceleration; nothing extra.
+- **Qualcomm**: Adreno hardware acceleration; nothing extra.
+- **MediaTek**: load droidspaces-lkm's `vkms` on the host (`enable_vkms` in the module directory), otherwise the compositor refuses to start with `no usable DRM render device`.
+- **Anland Next (the 6.x waylandbridge session that needs `mali_nsfix`) is not built here**; use [droidspaces-anland6-rootfs](https://github.com/misaka5202/droidspaces-anland6-rootfs).
 
 To build both variants at once, run **“发布全桌面 Wayland RootFS（高通 + MTK 双版本）”**
 and leave `gpu_vendor` on `both`. To build a single distro for one vendor, use the
