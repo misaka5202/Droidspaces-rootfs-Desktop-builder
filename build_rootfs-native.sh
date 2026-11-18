@@ -163,7 +163,15 @@ echo "正在运行 Docker Build (原生模式)..."
 
 
 
+# GHA 构建层缓存：同一仓库/分支的相同 Dockerfile 与构建参数跨 job、跨 run 复用。
+# 本地构建没有 ACTIONS_RUNTIME_TOKEN，不加这两个 flag（type=gha 在本地不可用）。
+DSL_CACHE_FLAGS=()
+if [ -n "${GITHUB_ACTIONS:-}" ]; then
+  DSL_CACHE_FLAGS=(--cache-from type=gha --cache-to type=gha,mode=max)
+fi
+
 docker buildx build \
+  "${DSL_CACHE_FLAGS[@]}" \
   --target export \
   --output type=tar,dest="$TEMP_TAR" \
   --build-arg DESKTOP="$DESKTOP" \

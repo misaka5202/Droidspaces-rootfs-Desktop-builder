@@ -223,8 +223,10 @@ GLFW_IM_MODULE=fcitx
 EOF
 fi
         # 顺序重要：MTK 必须先装好 libhybris，configure-gpu 才能探测到
-    # /opt/hy/inst/lib/libEGL.so 并选择硬件路径；否则它会走 llvmpipe 回退分支。
-    if [ "${GPU_VENDOR_ARG:-qualcomm}" = "mediatek" ]; then
+    # 5.x 一刀切走 vkms：MTK 不再编译 libhybris（libhybris/mali0 路径属于
+    # Anland Next/6.x，见 droidspaces-anland6-rootfs）。保留条件防止旧参数
+    # 误触发。
+    if [ "${DESKTOP:-}" = "anland-next" ]; then
         DSHY_BUILD=1 /usr/local/sbin/setup-mali-hybris
     fi
 # GPU 厂商相关的环境变量：高通走 kgsl，MTK 走 libhybris + 厂商 Mali
