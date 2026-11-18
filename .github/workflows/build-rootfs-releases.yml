@@ -122,7 +122,7 @@ on:
         type: string
         default: Goldzxcbug/droidspaces-package
       gpu_vendor:
-        description: GPU 厂商（qualcomm=Adreno 硬件加速；mediatek=vkms 软件渲染）
+        description: GPU 厂商（qualcomm=Adreno 硬件加速；mediatek=MTK：Anland Next 走 mali0，其余桌面走 vkms）
         required: true
         type: choice
         default: qualcomm

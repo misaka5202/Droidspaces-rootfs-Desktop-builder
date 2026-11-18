@@ -30,6 +30,11 @@
 #     3) 不设 MESA_LOADER_DRIVER_OVERRIDE / LIBGL_ALWAYS_SOFTWARE —— 那会让
 #        Mesa 强制走软件路径，把 hybris 盖掉
 #     4) **不能**设任何 kgsl 变量，理由同高通那侧
+#
+#   注意这是「Anland Next（6.x）」那条路径的配置。自带标准 Wayland 合成器的
+#   桌面镜像（KDE/GNOME/Hyprland/Niri/Mango/Denial）走的是
+#   ANLAND_DRM_DEVICE=/dev/dri/renderD128，Mali 上没有 DRM render node，宿主
+#   必须加载 droidspaces-lkm 的 vkms；那种镜像里 hybris 环境不参与渲染。
 set -euo pipefail
 
 VENDOR="${1:-qualcomm}"

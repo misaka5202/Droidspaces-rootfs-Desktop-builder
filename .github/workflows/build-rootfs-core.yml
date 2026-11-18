@@ -72,7 +72,7 @@ on:
         type: string
         default: ''
       gpu_vendor:
-        description: 'GPU 厂商：qualcomm（Adreno 硬件加速）或 mediatek（vkms 软件渲染）'
+        description: 'GPU 厂商：qualcomm（Adreno 硬件加速）或 mediatek（MTK；Anland Next=libhybris+/dev/mali0+mali_nsfix，其余桌面=vkms render node）'
         required: false
         type: string
         default: qualcomm
